@@ -12,21 +12,18 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        try {
-            $credentials = $request->only('email', 'password');
-
-            if(Auth::attempt($credentials)){
-                $user   = Auth::user();
-                $token  = $user->createToken('authToken')->plainTextToken;
-                
-                if($user->role === 'admin'){
-                    return ResponseHelper::onSuccess('Admin Login successful', ['user' => $user, 'token' => $token], 200);
-                }else{
-                    return ResponseHelper::onSuccess('User Login successful', ['user' => $user, 'token' => $token], 200);
-                }
+        $credentials = $request->only('email', 'password');
+        
+        if(Auth::attempt($credentials)){
+            $user   = Auth::user();
+            $token  = $user->createToken('authToken')->plainTextToken;
+            
+            if($user->role === 'admin'){
+                return ResponseHelper::onSuccess('Admin Login successful', ['user' => $user, 'token' => $token], 200);
+            }else{
+                return ResponseHelper::onSuccess('User Login successful', ['user' => $user, 'token' => $token], 200);
             }
-
-        } catch (\Throwable $th) {
+        }else{
             return ResponseHelper::onError('Invalid credentials', 401);
         }
     }
