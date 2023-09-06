@@ -23,6 +23,7 @@ class AuthController extends Controller
             }else{
                 return ResponseHelper::onSuccess('User Login successful', ['user' => $user, 'token' => $token], 200);
             }
+            
         }else{
             return ResponseHelper::onError('Invalid credentials', 401);
         }
