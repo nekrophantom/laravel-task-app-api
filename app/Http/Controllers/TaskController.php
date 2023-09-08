@@ -16,9 +16,25 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::with('user', 'categories')->get();
+        
+        $response = $tasks->map(function ($task){
+            return [
+                'id'            => $task->id,
+                'categoryName'  => $task->categories->name,
+                'title'         => $task->title,
+                'description'   => $task->description,
+                'due_date'      => $task->due_date,
+                'userName'      => $task->user->name,
+                'priority'      => $task->priority,
+                'status'        => $task->status,
+                'created_at'    => $task->created_at,
+                'updated_at'    => $task->updated_at       
+            ];  
+        });
 
-        return ResponseHelper::onSuccess('All Task', $tasks, 200);
+        // dd($response);
+        return ResponseHelper::onSuccess('All Task', $response, 200);
     }
 
     /**

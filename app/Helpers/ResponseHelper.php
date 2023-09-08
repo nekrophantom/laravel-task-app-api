@@ -16,7 +16,7 @@ class ResponseHelper
             $response['data'] = $data;
         }
     
-        return new JsonResponse($response, $statusCode);
+        return new JsonResponse($response, 200);
     }
     
     public static function onError($message, $statusCode)
