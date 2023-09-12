@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseHelper;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::get();
+
+        return ResponseHelper::onSuccess('All Categories', $category, 200);
     }
 
     /**

@@ -33,7 +33,6 @@ class TaskController extends Controller
             ];  
         });
 
-        // dd($response);
         return ResponseHelper::onSuccess('All Task', $response, 200);
     }
 
