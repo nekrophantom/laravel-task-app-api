@@ -51,7 +51,6 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        
         DB::beginTransaction();
         try {
             $request->validate([
@@ -59,7 +58,7 @@ class TaskController extends Controller
                 'title'         => 'required',
                 'description'   => 'required',
                 'due_date'      => 'required|date',
-                'user_id'       => 'required|exists:users,id',
+                'user_id'       => 'nullable|exists:users,id',
                 'priority'      => 'required',
                 'status'        => 'required'
             ]);
