@@ -18,11 +18,8 @@ class AuthController extends Controller
             $user   = Auth::user();
             $token  = $user->createToken('authToken')->plainTextToken;
             
-            if($user->role === 'admin'){
-                return ResponseHelper::onSuccess('Admin Login successful', ['user' => $user, 'token' => $token], 200);
-            }else{
-                return ResponseHelper::onSuccess('User Login successful', ['user' => $user, 'token' => $token], 200);
-            }
+            return ResponseHelper::onSuccess('User Login successful', ['user' => $user, 'token' => $token], 200);
+
             
         }else{
             return ResponseHelper::onError('Invalid credentials', 401);
@@ -37,7 +34,6 @@ class AuthController extends Controller
                 'name'      => 'required|string|max:255',
                 'email'     => 'required|string|email|max:255|unique:users',
                 'password'  => 'required|string|min:6|confirmed',
-                'role'      => 'user'
             ]);
     
             if ($validator->fails()) {
