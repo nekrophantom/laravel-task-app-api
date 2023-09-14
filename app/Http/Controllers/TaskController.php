@@ -106,6 +106,16 @@ class TaskController extends Controller
     {
         DB::beginTransaction();
         try {
+
+            $request->validate([
+                'category_id'   => 'required|exists:categories,id',
+                'title'         => 'required',
+                'description'   => 'required',
+                'due_date'      => 'required|date',
+                'user_id'       => 'nullable|exists:users,id',
+                'priority'      => 'required',
+                'status'        => 'required'
+            ]);
             
             $task->category_id  = $request->category_id;
             $task->title        = $request->title;
