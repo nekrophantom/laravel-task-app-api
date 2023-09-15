@@ -16,7 +16,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('user', 'categories')->get();
+        $tasks = Task::with('user', 'categories')->where('user_id', Auth::user()->id)->get();
         
         $response = $tasks->map(function ($task){
             return [
