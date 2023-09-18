@@ -6,7 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+
+use function Laravel\Prompts\alert;
 
 class AuthController extends Controller
 {
@@ -66,5 +70,28 @@ class AuthController extends Controller
         } catch (\Throwable $th) {
             return ResponseHelper::onError('Error logout!', 401);
         }
+    }
+    
+    public function deleteUser()
+    {
+      return view('delete');
+    }
+
+    
+    public function delete(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            
+            $user = User::where('email', $request->email)->first();
+            
+            $user->delete();
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('delete-user')->with('error', 'Error Delete User!');
+        }
+        return redirect()->route('delete-user')->with('success', 'Success Delete User!');
     }
 }

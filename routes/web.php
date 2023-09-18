@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/delete/user', [AuthController::class, 'deleteUser'])->name('delete-user');
+Route::post('/delete/user', [AuthController::class, 'delete'])->name('delete-user');
