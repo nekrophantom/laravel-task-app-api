@@ -148,7 +148,6 @@ class TaskController extends Controller
             return ResponseHelper::onSuccess('Success delete task ' . $task->title, null, 200);
             
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             DB::rollBack();
             return ResponseHelper::onError('Error delete task', 401);
         }
