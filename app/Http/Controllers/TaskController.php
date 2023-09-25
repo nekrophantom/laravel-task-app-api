@@ -100,7 +100,11 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return ResponseHelper::onSuccess("Edit Task ", $task, 200);
+        try {
+            return ResponseHelper::onSuccess('Edit Task' , $task, 200);
+        } catch (\Throwable $th) {
+            return ResponseHelper::onError("Data Invalid", 400);
+        }
     }
 
     /**
