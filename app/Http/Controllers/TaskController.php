@@ -88,7 +88,11 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return ResponseHelper::onSuccess('Task Detail' , $task, 200);
+        try {
+            return ResponseHelper::onSuccess('Task Detail' , $task, 200);
+        } catch (\Throwable $th) {
+            return ResponseHelper::onError("Data Invalid", 400);
+        }
     }
 
     /**
