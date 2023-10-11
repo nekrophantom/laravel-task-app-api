@@ -135,11 +135,11 @@ class TaskController extends Controller
             $task->save();
 
             DB::commit();
-            return ResponseHelper::onSuccess('Success update task ' + $task->title, $task, 200);
+            return ResponseHelper::onSuccess('Success update task '. $task->title, $task, 200);
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            return ResponseHelper::onError('Error update task ' + $task->title , 401);
+            return ResponseHelper::onError('Error update task ' . $task->title , 401);
         }
     }
 
